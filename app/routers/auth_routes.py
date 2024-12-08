@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from starlette.requests import Request
 
-from app.controllers.auth_controllers.auth_controller import handle_login
+from app.controllers.auth_controllers.login_controller import handle_login
 from app.controllers.auth_controllers.logout_controller import handle_logout
 from app.controllers.auth_controllers.refresh_token_controller import handle_refresh_token
 from app.middleware.verify_gjwt import verify_google_token
