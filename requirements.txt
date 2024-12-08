@@ -1,0 +1,6 @@
+fastapi[standard]
+google-auth
+pymongo
+pyJWT
+requests
+python-dotenv
