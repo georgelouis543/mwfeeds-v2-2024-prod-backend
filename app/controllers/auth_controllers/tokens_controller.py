@@ -10,7 +10,7 @@ REFRESH_TOKEN_SECRET = os.getenv("REFRESH_TOKEN_SECRET")
 ALGORITHM = os.getenv("ALGORITHM")
 
 
-# These functions are responsible for creating Access and Refresh tokens and handling Login
+# These functions are responsible for creating Access and Refresh tokens
 def create_refresh_token(user_email: str, user_name: str):
     try:
         found_user_email = user_email
