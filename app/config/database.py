@@ -8,7 +8,7 @@ uri = os.getenv("MONGO_CLIENT_URI")
 client = MongoClient(uri)
 
 
-db = client.mwfeeds_staging_db
+db = client.mwfeeds_staging_db_final
 
 feed_collection = db["feed_collection"]
 user_collection = db["user_collection"]

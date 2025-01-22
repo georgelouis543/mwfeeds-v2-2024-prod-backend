@@ -13,20 +13,10 @@ def handle_login(user_email: str):
             {"user_email": user_email}
         )
 
-        if found_user:
-            refresh_token = create_refresh_token(found_user["user_email"], found_user["user_name"])
-            access_token = create_access_token(found_user["user_email"], found_user["user_name"])
+        refresh_token = None
+        access_token = None
 
-        else:
-            user_collection.insert_one({
-                "user_name": user_email.split('@')[0],
-                "user_email": user_email,
-                "isAdmin": False,
-                "refresh_token": "",
-            })
-            found_user = user_collection.find_one({
-                "user_email": user_email
-            })
+        if found_user:
             refresh_token = create_refresh_token(found_user["user_email"], found_user["user_name"])
             access_token = create_access_token(found_user["user_email"], found_user["user_name"])
 

@@ -10,7 +10,7 @@ def add_middlewares(app):
             "https://www.mwfeedsv2-staging.com",
         ],
         allow_credentials=True,
-        allow_methods=["GET", "POST", "HEAD", "OPTIONS", "DELETE"],
+        allow_methods=["GET", "POST", "HEAD", "OPTIONS", "DELETE", "PUT"],
         allow_headers=[
             "Access-Control-Allow-Headers",
             "Content-Type",
