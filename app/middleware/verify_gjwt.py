@@ -13,14 +13,14 @@ CLIENT_ID = os.getenv("CLIENT_ID")
 def verify_google_token(token: str) -> dict:
     print(token)
     if token == "" or token is None:
-        raise HTTPException(status_code=401, detail="Could not authenticate User!")
+        raise HTTPException(status_code=401, detail="Could not authorize User!")
 
     try:
         id_info = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
         id_info_domain = dict(id_info).get("hd", "None")
     except Exception as e:
         print(f"Exited with Exception {e}")
-        raise HTTPException(status_code=401, detail="Could not authenticate User!")
+        raise HTTPException(status_code=401, detail="Could not authorize User!")
 
     if id_info_domain == "meltwater.com":
         id_email = dict(id_info).get("email", "None")

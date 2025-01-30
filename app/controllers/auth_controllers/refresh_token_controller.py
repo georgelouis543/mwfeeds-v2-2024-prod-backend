@@ -25,12 +25,12 @@ async def handle_refresh_token(request: Request):
         refresh_token = None
 
     if refresh_token is not None:
-        try:
-            found_user = user_collection.find_one({"refresh_token": refresh_token})
-            print(found_user)
-        except Exception as e:
-            print(f'Exited with Exception: {e}')
-            raise HTTPException(401, detail="Could not authenticate User!")
+        found_user = user_collection.find_one({"refresh_token": refresh_token})
+        print(found_user)
+
+        if not found_user:
+            raise HTTPException(403, detail="Forbidden!")
+
         try:
             decoded_refresh_token = jwt.decode(
                 refresh_token,
@@ -40,24 +40,21 @@ async def handle_refresh_token(request: Request):
             print(decoded_refresh_token)
         except Exception as e:
             print(f'Exited with Exception: {e}')
-            raise HTTPException(401, detail="Could not authenticate User!")
-        try:
-            if decoded_refresh_token["user_email"] == found_user["user_email"]:
-                access_token = create_access_token(
-                    found_user["user_email"],
-                    found_user["user_name"])
-                data_to_return = {
-                    "access_token": access_token,
-                    "token_type": "Bearer",
-                    "user_email": found_user["user_email"]
-                }
-                response = JSONResponse(content=data_to_return)
-                return response
-            else:
-                raise HTTPException(401, detail="Could not authenticate User!")
-        except Exception as e:
-            print(f'Exited with Exception: {e}')
-            raise HTTPException(401, detail="Could not authenticate User!")
+            raise HTTPException(403, detail="Forbidden!")
+
+        if decoded_refresh_token["user_email"] == found_user["user_email"]:
+            access_token = create_access_token(
+                found_user["user_email"],
+                found_user["user_name"])
+            data_to_return = {
+                "access_token": access_token,
+                "token_type": "Bearer",
+                "user_email": found_user["user_email"]
+            }
+            response = JSONResponse(content=data_to_return)
+            return response
+        else:
+            raise HTTPException(403, detail="Forbidden")
 
     else:
-        raise HTTPException(401, detail="Could not authenticate User!")
+        raise HTTPException(401, detail="Could not authorize User!")
