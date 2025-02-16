@@ -4,3 +4,5 @@ pymongo
 pyJWT
 requests
 python-dotenv
+lxml
+httpx

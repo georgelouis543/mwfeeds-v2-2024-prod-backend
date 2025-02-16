@@ -5,7 +5,7 @@ from app.controllers.auth_controllers.login_controller import handle_login
 from app.controllers.auth_controllers.logout_controller import handle_logout
 from app.controllers.auth_controllers.refresh_token_controller import handle_refresh_token
 from app.middleware.verify_gjwt import verify_google_token
-from app.models.token import Token
+from app.models.auth.token import Token
 
 router = APIRouter(
     prefix="/auth",
